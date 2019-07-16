@@ -5,10 +5,15 @@ import com.hanma.ordersku.domain.OrderSku;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 @Data
-public class Order {
+public class Order implements Serializable {
+    /**
+     * 序列化
+     */
+    private static final long serialVersionUID = -4312930734780706350L;
     //订单主键
     private Long orderId;
 

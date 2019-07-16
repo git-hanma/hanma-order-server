@@ -10,13 +10,13 @@ import java.util.List;
 public interface OrderService {
 
     //根据ID查询 此用户所有订单
-    Order getUserIdOrder(Long userId);
+    List<Order> getUserIdOrder(Long userId);
 
     //查询所有订单
     List<Order> queryOrderList();
 
     //根据商家ID查询 此商家所有订单
-    Order getMerchantIdOrder(Long merchantId);
+    List<Order> getMerchantIdOrder(Long merchantId);
 
     //新增订单信息
     Integer saveOrder(Order order);

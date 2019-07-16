@@ -34,7 +34,7 @@
   </sql>
   <!--根据ID查询 此用户所有订单-->
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -287,20 +287,59 @@
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
   <!--查询所有订单-->
-  <select id="queryOrderList" resultMap="ResultMapWithBLOBs">
+  <select id="queryOrderList" resultType="com.hanma.order.domain.Order">
     select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from order_itme
+    <!--oi.order_id,
+    oi.user_id,
+    oi.merchant_id,
+    oi.order_cost,
+    oi.order_onsale,
+    oi.order_countprce,
+    oi.order_actual,ice,
+    oi.order_actual,
+    oi.order_pay,
+    oi.address_name,
+    oi.address_shipping,
+    oi.address_phone,
+    oi.order_status,
+    oi.order_number,
+    oi.order_create_time,
+    oi.order_payent_time,
+    oi.order_send_time,
+    oi.order_gain_time,
+    oi.order_yn
+    ,
+    oi.<include refid="Blob_Column_List" />
+    from order_itme oi LEFT JOIN order_sku os on oi.order_id=os.order_id-->
   </select>
   <!--根据商家ID查询 此商家所有订单-->
   <select id="getMerchantIdOrder" resultType="com.hanma.order.domain.Order" parameterType="java.lang.Long">
     select
-    <include refid="Base_Column_List" />
+    oi.order_id,
+    oi.user_id,
+    oi.merchant_id,
+    oi.order_cost,
+    oi.order_onsale,
+    oi.order_countprice,
+    oi.order_actual,
+    oi.order_pay,
+    oi.address_name,
+    oi.address_shipping,
+    oi.address_phone,
+    oi.order_status,
+    oi.order_number,
+    oi.order_create_time,
+    oi.order_payent_time,
+    oi.order_send_time,
+    oi.order_gain_time,
+    oi.order_yn
     ,
-    <include refid="Blob_Column_List" />
-    from order_itme
+    oi.<include refid="Blob_Column_List" />
+    from order_itme oi LEFT JOIN order_sku os on oi.order_id=os.order_id
     where merchant_id = #{merchantId,jdbcType=BIGINT}
   </select>
 </mapper>

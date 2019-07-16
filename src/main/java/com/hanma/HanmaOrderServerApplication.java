@@ -3,7 +3,7 @@ package com.hanma;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-
+/*表明提供服务*/
 @EnableEurekaClient
 @SpringBootApplication
 public class HanmaOrderServerApplication {

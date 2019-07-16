@@ -1,6 +1,7 @@
 package com.hanma.ordersku.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hanma.order.domain.Order;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
