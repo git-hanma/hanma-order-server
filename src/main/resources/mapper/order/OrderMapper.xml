@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanma.order.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.hanma.order.domain.Order">
+    <id column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="order_cost" jdbcType="DOUBLE" property="orderCost" />
+    <result column="order_onsale" jdbcType="VARCHAR" property="orderOnsale" />
+    <result column="order_countprice" jdbcType="DOUBLE" property="orderCountprice" />
+    <result column="order_actual" jdbcType="VARCHAR" property="orderActual" />
+    <result column="order_pay" jdbcType="VARCHAR" property="orderPay" />
+    <result column="address_name" jdbcType="VARCHAR" property="addressName" />
+    <result column="address_shipping" jdbcType="VARCHAR" property="addressShipping" />
+    <result column="address_phone" jdbcType="VARCHAR" property="addressPhone" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="order_create_time" jdbcType="TIMESTAMP" property="orderCreateTime" />
+    <result column="order_payent_time" jdbcType="TIMESTAMP" property="orderPayentTime" />
+    <result column="order_send_time" jdbcType="TIMESTAMP" property="orderSendTime" />
+    <result column="order_gain_time" jdbcType="TIMESTAMP" property="orderGainTime" />
+    <result column="order_yn" jdbcType="INTEGER" property="orderYn" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hanma.order.domain.Order">
+    <result column="order_text" jdbcType="LONGVARCHAR" property="orderText" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, user_id, merchant_id, order_cost, order_onsale, order_countprice, order_actual, 
+    order_pay, address_name, address_shipping, address_phone, order_status, order_number, 
+    order_create_time, order_payent_time, order_send_time, order_gain_time, order_yn
+  </sql>
+  <sql id="Blob_Column_List">
+    order_text
+  </sql>
+  <!--根据ID查询 此用户所有订单-->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_itme
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from order_itme
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hanma.order.domain.Order">
+    insert into order_itme (order_id, user_id, merchant_id, 
+      order_cost, order_onsale, order_countprice, 
+      order_actual, order_pay, address_name, 
+      address_shipping, address_phone, order_status, 
+      order_number, order_create_time, order_payent_time, 
+      order_send_time, order_gain_time, order_yn, 
+      order_text)
+    values (#{orderId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{merchantId,jdbcType=BIGINT}, 
+      #{orderCost,jdbcType=DOUBLE}, #{orderOnsale,jdbcType=VARCHAR}, #{orderCountprice,jdbcType=DOUBLE}, 
+      #{orderActual,jdbcType=VARCHAR}, #{orderPay,jdbcType=VARCHAR}, #{addressName,jdbcType=VARCHAR}, 
+      #{addressShipping,jdbcType=VARCHAR}, #{addressPhone,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, 
+      #{orderNumber,jdbcType=VARCHAR}, #{orderCreateTime,jdbcType=TIMESTAMP}, #{orderPayentTime,jdbcType=TIMESTAMP}, 
+      #{orderSendTime,jdbcType=TIMESTAMP}, #{orderGainTime,jdbcType=TIMESTAMP}, #{orderYn,jdbcType=INTEGER}, 
+      #{orderText,jdbcType=LONGVARCHAR})
+  </insert>
+  <!--新增订单信息-->
+  <insert id="insertSelective" parameterType="com.hanma.order.domain.Order">
+    insert into order_itme
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="orderCost != null">
+        order_cost,
+      </if>
+      <if test="orderOnsale != null">
+        order_onsale,
+      </if>
+      <if test="orderCountprice != null">
+        order_countprice,
+      </if>
+      <if test="orderActual != null">
+        order_actual,
+      </if>
+      <if test="orderPay != null">
+        order_pay,
+      </if>
+      <if test="addressName != null">
+        address_name,
+      </if>
+      <if test="addressShipping != null">
+        address_shipping,
+      </if>
+      <if test="addressPhone != null">
+        address_phone,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="orderCreateTime != null">
+        order_create_time,
+      </if>
+      <if test="orderPayentTime != null">
+        order_payent_time,
+      </if>
+      <if test="orderSendTime != null">
+        order_send_time,
+      </if>
+      <if test="orderGainTime != null">
+        order_gain_time,
+      </if>
+      <if test="orderYn != null">
+        order_yn,
+      </if>
+      <if test="orderText != null">
+        order_text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCost != null">
+        #{orderCost,jdbcType=DOUBLE},
+      </if>
+      <if test="orderOnsale != null">
+        #{orderOnsale,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCountprice != null">
+        #{orderCountprice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderActual != null">
+        #{orderActual,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPay != null">
+        #{orderPay,jdbcType=VARCHAR},
+      </if>
+      <if test="addressName != null">
+        #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressShipping != null">
+        #{addressShipping,jdbcType=VARCHAR},
+      </if>
+      <if test="addressPhone != null">
+        #{addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCreateTime != null">
+        #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderPayentTime != null">
+        #{orderPayentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderSendTime != null">
+        #{orderSendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderGainTime != null">
+        #{orderGainTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderYn != null">
+        #{orderYn,jdbcType=INTEGER},
+      </if>
+      <if test="orderText != null">
+        #{orderText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hanma.order.domain.Order">
+    update order_itme
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCost != null">
+        order_cost = #{orderCost,jdbcType=DOUBLE},
+      </if>
+      <if test="orderOnsale != null">
+        order_onsale = #{orderOnsale,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCountprice != null">
+        order_countprice = #{orderCountprice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderActual != null">
+        order_actual = #{orderActual,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPay != null">
+        order_pay = #{orderPay,jdbcType=VARCHAR},
+      </if>
+      <if test="addressName != null">
+        address_name = #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressShipping != null">
+        address_shipping = #{addressShipping,jdbcType=VARCHAR},
+      </if>
+      <if test="addressPhone != null">
+        address_phone = #{addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null">
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCreateTime != null">
+        order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderPayentTime != null">
+        order_payent_time = #{orderPayentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderSendTime != null">
+        order_send_time = #{orderSendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderGainTime != null">
+        order_gain_time = #{orderGainTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderYn != null">
+        order_yn = #{orderYn,jdbcType=INTEGER},
+      </if>
+      <if test="orderText != null">
+        order_text = #{orderText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hanma.order.domain.Order">
+    update order_itme
+    set user_id = #{userId,jdbcType=BIGINT},
+      merchant_id = #{merchantId,jdbcType=BIGINT},
+      order_cost = #{orderCost,jdbcType=DOUBLE},
+      order_onsale = #{orderOnsale,jdbcType=VARCHAR},
+      order_countprice = #{orderCountprice,jdbcType=DOUBLE},
+      order_actual = #{orderActual,jdbcType=VARCHAR},
+      order_pay = #{orderPay,jdbcType=VARCHAR},
+      address_name = #{addressName,jdbcType=VARCHAR},
+      address_shipping = #{addressShipping,jdbcType=VARCHAR},
+      address_phone = #{addressPhone,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      order_payent_time = #{orderPayentTime,jdbcType=TIMESTAMP},
+      order_send_time = #{orderSendTime,jdbcType=TIMESTAMP},
+      order_gain_time = #{orderGainTime,jdbcType=TIMESTAMP},
+      order_yn = #{orderYn,jdbcType=INTEGER},
+      order_text = #{orderText,jdbcType=LONGVARCHAR}
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hanma.order.domain.Order">
+    update order_itme
+    set user_id = #{userId,jdbcType=BIGINT},
+      merchant_id = #{merchantId,jdbcType=BIGINT},
+      order_cost = #{orderCost,jdbcType=DOUBLE},
+      order_onsale = #{orderOnsale,jdbcType=VARCHAR},
+      order_countprice = #{orderCountprice,jdbcType=DOUBLE},
+      order_actual = #{orderActual,jdbcType=VARCHAR},
+      order_pay = #{orderPay,jdbcType=VARCHAR},
+      address_name = #{addressName,jdbcType=VARCHAR},
+      address_shipping = #{addressShipping,jdbcType=VARCHAR},
+      address_phone = #{addressPhone,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      order_payent_time = #{orderPayentTime,jdbcType=TIMESTAMP},
+      order_send_time = #{orderSendTime,jdbcType=TIMESTAMP},
+      order_gain_time = #{orderGainTime,jdbcType=TIMESTAMP},
+      order_yn = #{orderYn,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  <!--查询所有订单-->
+  <select id="queryOrderList" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_itme
+  </select>
+  <!--根据商家ID查询 此商家所有订单-->
+  <select id="getMerchantIdOrder" resultType="com.hanma.order.domain.Order" parameterType="java.lang.Long">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_itme
+    where merchant_id = #{merchantId,jdbcType=BIGINT}
+  </select>
+</mapper>
