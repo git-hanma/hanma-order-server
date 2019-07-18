@@ -4,7 +4,6 @@ import com.hanma.order.domain.Order;
 import com.hanma.order.mapper.OrderMapper;
 import com.hanma.order.service.OrderService;
 import com.hanma.ordersku.domain.OrderSku;
-import com.hanma.ordersku.mapper.OrderSkuMapper;
 import com.hanma.ordersku.service.OrderSkuService;
 import com.hanma.util.OrderCodeFactory;
 import org.springframework.beans.factory.annotation.Autowired;

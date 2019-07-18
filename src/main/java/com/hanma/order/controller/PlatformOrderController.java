@@ -35,7 +35,7 @@ public class PlatformOrderController {
     @ResponseBody
     @GetMapping("/queryOrderList")
     @ApiOperation(value = "查询所有订单")
-    public List<Order> queryOrderList(@RequestParam String orderNumber){
+    public List<Order> queryOrderList(String orderNumber){
         return orderService.queryOrderList(orderNumber);
     }
 }
