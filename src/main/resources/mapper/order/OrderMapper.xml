@@ -293,6 +293,9 @@
     ,
     <include refid="Blob_Column_List" />
     from order_itme
+    <if test="orderNumber !=null and orderNumber !=''">
+      WHERE order_number LIKE "%"#{orderNumber}"%"
+    </if>
     <!--oi.order_id,
     oi.user_id,
     oi.merchant_id,

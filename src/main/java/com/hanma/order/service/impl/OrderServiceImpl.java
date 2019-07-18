@@ -53,9 +53,9 @@ public class OrderServiceImpl implements OrderService {
      */
     @Transactional(readOnly = true)
     @Override
-    public List<Order> queryOrderList() {
+    public List<Order> queryOrderList(String orderNumber) {
         /*查询主订单的数据*/
-        List<Order> orderList= orderMapper.queryOrderList();
+        List<Order> orderList= orderMapper.queryOrderList(orderNumber);
         /*循环订单的数据*/
         for(int i=0;i<orderList.size();i++){
             /*使用主订单的ID查询出与之对应的sku附属表中的数据*/
