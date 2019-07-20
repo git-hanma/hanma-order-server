@@ -24,7 +24,7 @@ public interface OrderMapper {
     int updateByPrimaryKey(Order record);
 
     //查询所有订单
-    List<Order> queryOrderList(String orderNumber);
+    List<Order> queryOrderList(Order order);
 
     //根据商家ID查询 此商家所有订单
     List<Order> getMerchantIdOrder(Long merchantId);

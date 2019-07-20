@@ -287,16 +287,7 @@
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
   <!--查询所有订单-->
-  <select id="queryOrderList" resultType="com.hanma.order.domain.Order" parameterType="String">
-    select
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from order_itme
-    <if test="orderNumber!=null and orderNumber!=''">
-      WHERE order_number LIKE "%"#{orderNumber}"%"
-    </if>
-    <!--oi.order_id,
+  <!--oi.order_id,
     oi.user_id,
     oi.merchant_id,
     oi.order_cost,
@@ -318,6 +309,16 @@
     ,
     oi.<include refid="Blob_Column_List" />
     from order_itme oi LEFT JOIN order_sku os on oi.order_id=os.order_id-->
+  <select id="queryOrderList" resultType="com.hanma.order.domain.Order" parameterType="com.hanma.order.domain.Order">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_itme
+    WHERE 1=1
+    <if test="orderNumber!=null and orderNumber!=''">
+    AND order_number LIKE "%"#{orderNumber,jdbcType=VARCHAR}"%"
+    </if>
   </select>
   <!--根据商家ID查询 此商家所有订单-->
   <select id="getMerchantIdOrder" resultType="com.hanma.order.domain.Order" parameterType="java.lang.Long">
