@@ -15,7 +15,7 @@ public interface OrderMapper {
     //新增订单信息
     int insertSelective(Order record);
     //根据ID查询 此用户所有订单
-    List<Order> selectByPrimaryKey(Long orderId);
+    List<Order> selectByPrimaryKey(Long userId);
 
     int updateByPrimaryKeySelective(Order record);
 
